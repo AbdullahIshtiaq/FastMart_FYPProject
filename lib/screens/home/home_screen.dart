@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stylish/constants.dart';
+import 'package:stylish/models/MyProduct.dart';
 import 'package:stylish/screens/cart/cart_screen.dart';
 import 'package:stylish/screens/notifications/notification_screen.dart';
 
+import '../../models/MyCategory.dart';
 import 'components/categories.dart';
 import 'components/home_page_products.dart';
 import 'components/search_filter_form.dart';
@@ -74,7 +76,21 @@ class HomeScreen extends StatelessWidget {
                 padding: EdgeInsets.symmetric(vertical: defaultPadding / 1.5),
                 child: SearchForm(),
               ),
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 5),
+                child: Text(
+                  "Categories",
+                  style: TextStyle(fontSize: 15),
+                ),
+              ),
               const Categories(),
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 5),
+                child: Text(
+                  "Products",
+                  style: TextStyle(fontSize: 15),
+                ),
+              ),
               const HomePageProducts(),
             ],
           ),

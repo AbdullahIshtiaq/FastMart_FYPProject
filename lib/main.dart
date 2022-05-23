@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:stylish/constants.dart';
 import 'package:stylish/screens/QRScan/qr_scan_screen.dart';
@@ -19,10 +20,12 @@ void main() async{
   if(_result){
     _defaultHome = const MyStatefulWidget();
   }
-  runApp(const GetMaterialApp(
-    home: MyApp(),
-    debugShowCheckedModeBanner: false,
-    debugShowMaterialGrid: false,
+  runApp(const ProviderScope(
+    child: GetMaterialApp(
+      home: MyApp(),
+      debugShowCheckedModeBanner: false,
+      debugShowMaterialGrid: false,
+    ),
   ));
 }
 
