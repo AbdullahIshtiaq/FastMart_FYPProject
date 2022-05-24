@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:stylish/constants.dart';
 import 'package:stylish/screens/QRScan/qr_scan_screen.dart';
+import 'package:stylish/screens/category/category_screen.dart';
 import 'package:stylish/screens/home/home_screen.dart';
 import 'package:stylish/screens/profile/profile_screen.dart';
 import 'package:stylish/screens/register/login_screen.dart';
@@ -55,6 +56,7 @@ class MyApp extends StatelessWidget {
         'login': (context) => const LoginScreen(),
         'register': (context) => const RegisterScreen(),
         'home': (context) => const MyStatefulWidget(),
+        // 'category_product': (context) => const CategoryScreen(),
       },
       // home: const RegisterScreen(),
     );
@@ -104,7 +106,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   Widget _selectedScreen(int index) {
     if (index == 0) {
-      return const HomeScreen();
+      return HomeScreen();
     }
     if (index == 1) {
       return const WishlistScreen();
@@ -118,7 +120,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     if (index == 4) {
       return const ProfileScreen();
     }
-    return const HomeScreen();
+    return HomeScreen();
   }
 
   @override
@@ -158,6 +160,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         selectedItemColor: primaryColor,
         unselectedItemColor: Colors.grey,
         onTap: _onItemTapped,
+
       ),
     );
   }

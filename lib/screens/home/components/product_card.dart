@@ -9,12 +9,12 @@ class ProductCard extends StatelessWidget {
     required this.title,
     required this.price,
     required this.press,
-    required this.bgColor,
+    //required this.bgColor,
   }) : super(key: key);
   final String image, title;
   final VoidCallback press;
   final int price;
-  final Color bgColor;
+  //final Color bgColor;
 
   @override
   Widget build(BuildContext context) {

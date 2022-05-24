@@ -1,10 +1,10 @@
-import 'dart:developer' as developer;
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stylish/models/MyPagination.dart';
+import 'package:stylish/models/ProductFilterModel.dart';
 import 'package:stylish/providers/myProvider.dart';
+import 'package:stylish/screens/category/category_screen.dart';
 
 import '../../../constants.dart';
 import '../../../models/MyCategory.dart';
@@ -26,19 +26,19 @@ class Categories extends ConsumerWidget {
       ),
     );
 
-   // developer.log('log me 35:  ${categories}', name: 'my.app.category');
+    // developer.log('log me 35:  ${categories}', name: 'my.app.category');
 
     return categories.when(
         data: (list) {
-          return _buildCategoryList(list!);
+          return _buildCategoryList(list!, ref);
         },
         error: (_, __) => const Center(
               child: Text("Error"),
             ),
-        loading: () => const Center(child: CircularProgressIndicator()));
+        loading: () => const Center(child: CircularProgressIndicator(color: primaryColor,)));
   }
 
-  Widget _buildCategoryList(List<MyCategory> categoryList) {
+  Widget _buildCategoryList(List<MyCategory> categoryList, WidgetRef ref) {
     return SizedBox(
       height: 80,
       child: ListView.separated(
@@ -47,7 +47,23 @@ class Categories extends ConsumerWidget {
         itemBuilder: (context, index) => CategoryCard(
           icon: categoryList[index].fullImagePath,
           title: categoryList[index].categoryName,
-          press: () {},
+          press: () {
+            ProductFilterModel filterModel = ProductFilterModel(
+                paginationModel: MyPaginationModel(page: 1, pageSize: 10),
+                categoryId: categoryList[index].categoryId);
+            ref.read(productsFilterProvider.notifier)
+                .setProductFilter(filterModel);
+            ref.read(productsNotifierProvider.notifier).getProducts();
+
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CategoryScreen(
+                    categoryId: categoryList[index].categoryId,
+                    categoryName: categoryList[index].categoryName,
+                  ),
+                ));
+          },
         ),
         separatorBuilder: (context, index) =>
             const SizedBox(width: defaultPadding),

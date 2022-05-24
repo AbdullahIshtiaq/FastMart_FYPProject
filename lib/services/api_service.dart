@@ -120,7 +120,7 @@ class APIService {
       var data = jsonDecode(response.body);
       //developer.log('log me 121: ${data}', name: 'my.app.product');
       //developer.log('log me 121: ${data["data"]}', name: 'my.app.product');
-      //developer.log('log me 122: ${productFromJson(data["data"])}', name: 'my.app.product');
+      developer.log('log me 122: ${productFromJson(data["data"])}', name: 'my.app.product');
       return productFromJson(data["data"]);
     } else {
       developer.log('log me', name: 'line 125:');

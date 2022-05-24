@@ -1,8 +1,16 @@
 class Config {
   static const String appName = "FastMart";
+  //Home
   static const String apiURL = "192.168.1.9:4000";
-
   static const String imgURL = "http://192.168.1.9:4000";
+
+  // Uni
+  // static const String apiURL = "192.168.30.176:4000";
+  // static const String imgURL = "http://192.168.30.176:4000";
+
+  // Lib
+  // static const String apiURL = "192.168.137.1:4000";
+  // static const String imgURL = "http://192.168.137.1:4000";
 
   static const String loginAPI = "/users/login";
   static const String registerAPI = "/users/register";
