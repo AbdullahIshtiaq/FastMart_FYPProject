@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:stylish/constants.dart';
 import 'package:stylish/models/Wishlist.dart';
+import 'package:stylish/utils/shared_preferences.dart';
 
 import '../../models/Cart.dart';
 import '../../models/MyProduct.dart';
@@ -41,11 +42,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
   }
 
   bool checkInCart() {
-    if (cartController.cartProducts.containsKey(product)) {
-      return true;
-    } else {
-      return false;
+    for (var item in cartController.cartProducts) {
+      if (item.productId == product.productId) {
+        return true;
+      }
     }
+    return false;
   }
 
   @override
@@ -74,7 +76,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(defaultPadding*2),
+            padding: const EdgeInsets.all(defaultPadding * 2),
             child: Image.network(
               widget.product.fullImagePath,
               height: MediaQuery.of(context).size.height * 0.4,
@@ -89,8 +91,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
           const SizedBox(height: defaultPadding * 1.5),
           Expanded(
             child: Container(
-              padding: const EdgeInsets.fromLTRB(defaultPadding*2,
-                  defaultPadding * 2, defaultPadding*2, defaultPadding),
+              padding: const EdgeInsets.fromLTRB(defaultPadding * 2,
+                  defaultPadding * 2, defaultPadding * 2, defaultPadding),
               decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
@@ -130,26 +132,40 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       height: 48,
                       child: ElevatedButton(
                         onPressed: () {
-                          // if (inCart) {
-                          //   Get.snackbar(
-                          //     "Removed Successfully",
-                          //     "",
-                          //     snackPosition: SnackPosition.BOTTOM,
-                          //     duration: const Duration(seconds: 1),
-                          //   );
-                          //   cartController.removeProductFromCart(product);
-                          // } else {
-                          //   Get.snackbar(
-                          //     "Added Successfully",
-                          //     "",
-                          //     snackPosition: SnackPosition.BOTTOM,
-                          //     duration: const Duration(seconds: 1),
-                          //   );
-                          //   cartController.addProductToCart(product);
-                          // }
-                          // setState(() {
-                          //   inCart = !inCart;
-                          // });
+                          CartProduct model = CartProduct(
+                              productId: product.productId,
+                              productImg: product.fullImagePath,
+                              productName: product.productName,
+                              productPrice: product.productPrice.toString(),
+                              qty: 1);
+
+                          if (inCart) {
+                            Get.snackbar(
+                              "Removed Successfully",
+                              "",
+                              snackPosition: SnackPosition.BOTTOM,
+                              duration: const Duration(seconds: 1),
+                            );
+
+                            cartController.removeProductFromCart(model);
+                            UserSharedPreferences.setCartList(
+                                cartController.cartProducts);
+                          } else {
+                            Get.snackbar(
+                              "Added Successfully",
+                              "",
+                              snackPosition: SnackPosition.BOTTOM,
+                              duration: const Duration(seconds: 1),
+                            );
+
+                            cartController.addProductToCart(model);
+                            //print(cartController.cartProducts);
+                            UserSharedPreferences.setCartList(
+                                cartController.cartProducts);
+                          }
+                          setState(() {
+                            inCart = !inCart;
+                          });
                         },
                         style: ElevatedButton.styleFrom(
                             primary: primaryColor,

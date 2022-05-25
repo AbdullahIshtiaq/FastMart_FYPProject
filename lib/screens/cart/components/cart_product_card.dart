@@ -1,22 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:stylish/utils/shared_preferences.dart';
 
 import '../../../constants.dart';
 import '../../../models/Cart.dart';
-import '../../../models/Product.dart';
 
-class CartProductCard extends StatelessWidget {
+class CartProductCard extends StatefulWidget {
   const CartProductCard({
     Key? key,
     required this.cartController,
-    required this.product,
-    required this.qty,
+    required this.cartProduct,
   }) : super(key: key);
 
   final CartController cartController;
-  final Product product;
-  final int qty;
+  final CartProduct cartProduct;
 
+  @override
+  State<CartProductCard> createState() => _CartProductCardState();
+}
+
+class _CartProductCardState extends State<CartProductCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,15 +34,16 @@ class CartProductCard extends StatelessWidget {
         children: [
           Expanded(
             child: Container(
-              decoration: BoxDecoration(
-                color: product.bgColor,
-                borderRadius: const BorderRadius.all(
-                    Radius.circular(defaultBorderRadius)),
+              decoration: const BoxDecoration(
+                //color: product.bgColor,
+                borderRadius:
+                    BorderRadius.all(Radius.circular(defaultBorderRadius)),
               ),
-              child: Image.asset(
-                product.image,
-                //height: 100,
-              ),
+              child: Image.network(widget.cartProduct.productImg),
+              // Image.asset(
+              //   product.image,
+              //   //height: 100,
+              // ),
             ),
           ),
           const SizedBox(width: defaultPadding / 2),
@@ -49,12 +53,12 @@ class CartProductCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  product.title,
+                  widget.cartProduct.productName,
                   style: const TextStyle(color: Colors.black),
                 ),
                 const SizedBox(height: defaultPadding / 2),
                 Text(
-                  "\$${product.price}",
+                  "\$${widget.cartProduct.productPrice}",
                   style: Theme.of(context).textTheme.subtitle2,
                 ),
               ],
@@ -71,11 +75,16 @@ class CartProductCard extends StatelessWidget {
                         color: primaryColor,
                       ),
                       onPressed: () {
-                        cartController.minusProductFromCart(product);
+                        setState(() {
+                          widget.cartController
+                              .minusProductFromCart(widget.cartProduct);
+                          UserSharedPreferences.setCartList(
+                              widget.cartController.cartProducts);
+                        });
                       },
                     ),
                     Text(
-                      qty.toString(),
+                      widget.cartProduct.qty.toString(),
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     Expanded(
@@ -85,7 +94,12 @@ class CartProductCard extends StatelessWidget {
                           color: primaryColor,
                         ),
                         onPressed: () {
-                          cartController.addProductToCart(product);
+                          setState(() {
+                            widget.cartController
+                                .addProductToCart(widget.cartProduct);
+                            UserSharedPreferences.setCartList(
+                                widget.cartController.cartProducts);
+                          });
                         },
                       ),
                     ),
@@ -98,7 +112,10 @@ class CartProductCard extends StatelessWidget {
                         color: primaryColor,
                       ),
                       onPressed: () {
-                        cartController.removeProductFromCart(product);
+                        widget.cartController
+                            .removeProductFromCart(widget.cartProduct);
+                        UserSharedPreferences.setCartList(
+                            widget.cartController.cartProducts);
                       }),
                 ),
               ],

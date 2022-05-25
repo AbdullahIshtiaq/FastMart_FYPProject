@@ -39,11 +39,12 @@ class _WishlistProductCardState extends State<WishlistProductCard> {
   }
 
   bool checkInCart() {
-    if (cartController.cartProducts.containsKey(product)) {
-      return true;
-    } else {
-      return false;
-    }
+    // if (cartController.cartProducts.containsKey(product)) {
+    //   return true;
+    // } else {
+    //   return false;
+    // }
+    return false;
   }
 
   @override
@@ -112,25 +113,25 @@ class _WishlistProductCardState extends State<WishlistProductCard> {
                       color: primaryColor,
                     ),
                     onPressed: () {
-                      if (inCart) {
-                        Get.snackbar(
-                          "Already In Cart",
-                          "",
-                          snackPosition: SnackPosition.BOTTOM,
-                          duration: const Duration(seconds: 1),
-                        );
-                      } else {
-                        Get.snackbar(
-                          "Added Successfully",
-                          "",
-                          snackPosition: SnackPosition.BOTTOM,
-                          duration: const Duration(seconds: 1),
-                        );
-                        cartController.addProductToCart(widget.product);
-                        setState(() {
-                          inCart = true;
-                        });
-                      }
+                      // if (inCart) {
+                      //   Get.snackbar(
+                      //     "Already In Cart",
+                      //     "",
+                      //     snackPosition: SnackPosition.BOTTOM,
+                      //     duration: const Duration(seconds: 1),
+                      //   );
+                      // } else {
+                      //   Get.snackbar(
+                      //     "Added Successfully",
+                      //     "",
+                      //     snackPosition: SnackPosition.BOTTOM,
+                      //     duration: const Duration(seconds: 1),
+                      //   );
+                      //   cartController.addProductToCart(widget.product);
+                      //   setState(() {
+                      //     inCart = true;
+                      //   });
+                      // }
                     },
                   ),
                   Expanded(

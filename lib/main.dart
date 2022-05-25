@@ -12,6 +12,7 @@ import 'package:stylish/screens/register/register_screen.dart';
 import 'package:stylish/screens/toShopList/toShop_screen.dart';
 import 'package:stylish/screens/wishlist/wishlist_screen.dart';
 import 'package:stylish/services/shared_service.dart';
+import 'package:stylish/utils/shared_preferences.dart';
 
 Widget _defaultHome = const LoginScreen();
 
@@ -21,6 +22,7 @@ void main() async{
   if(_result){
     _defaultHome = const MyStatefulWidget();
   }
+  await UserSharedPreferences.init();
   runApp(const ProviderScope(
     child: GetMaterialApp(
       home: MyApp(),

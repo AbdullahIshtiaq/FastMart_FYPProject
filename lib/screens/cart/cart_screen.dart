@@ -1,7 +1,10 @@
+import 'dart:developer' as developer;
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:stylish/constants.dart';
 import 'package:stylish/models/Cart.dart';
+import 'package:stylish/utils/shared_preferences.dart';
 
 import '../checkout/checkout_screen.dart';
 import 'components/cart_product_card.dart';
@@ -15,6 +18,23 @@ class CartScreen extends StatefulWidget {
 
 class _CartScreenState extends State<CartScreen> {
   final CartController cartController = Get.put(CartController());
+
+  @override
+  void initState() {
+    String str = UserSharedPreferences.getCartList() ?? "";
+    if (str != "") {
+      List<CartProduct> list = cartProductFromJson(str);
+      cartController.cartProducts.clear();
+      cartController.cartProducts.addAll(
+        list.where(
+          (cartProducts) => list.every((item) => true),
+        ),
+      );
+      developer.log('log me 53: ${cartController.cartProducts}',
+          name: 'my.app.CartScreen');
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +53,7 @@ class _CartScreenState extends State<CartScreen> {
           children: [
             Expanded(
               child: Obx(
-                () => (cartController.cartProducts.isNotEmpty)
+                () => (cartController.products.isNotEmpty)
                     ? GridView.builder(
                         shrinkWrap: true,
                         gridDelegate:
@@ -45,13 +65,10 @@ class _CartScreenState extends State<CartScreen> {
                             padding: const EdgeInsets.symmetric(
                                 vertical: defaultPadding / 2),
                             child: CartProductCard(
+                              cartProduct: cartController.cartProducts[index],
                               cartController: cartController,
-                              product: cartController.cartProducts.keys
-                                  .toList()[index],
-                              qty: cartController.cartProducts.values
-                                  .toList()[index],
                             )),
-                        itemCount: cartController.cartProducts.length,
+                        itemCount: cartController.products.length,
                         scrollDirection: Axis.vertical,
                       )
                     : Center(
@@ -80,26 +97,27 @@ class _CartScreenState extends State<CartScreen> {
                           style: TextStyle(
                               fontSize: 15, fontWeight: FontWeight.w500),
                         ),
-                        Obx(
-                          () => (cartController.cartProducts.isNotEmpty)
-                              ? Text(
-                                  "\$${cartController.total}",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline6!
-                                      .copyWith(
-                                          fontWeight: FontWeight.w400,
-                                          color: Colors.black),
-                                )
-                              : Text(
-                                  "\$0",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline6!
-                                      .copyWith(
-                                          fontWeight: FontWeight.w400,
-                                          color: Colors.black),
-                                ),
+                        GetBuilder<CartController>(
+                          builder: (control) =>
+                              (cartController.products.isNotEmpty)
+                                  ? Text(
+                                      "\$${cartController.total}",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline6!
+                                          .copyWith(
+                                              fontWeight: FontWeight.w400,
+                                              color: Colors.black),
+                                    )
+                                  : Text(
+                                      "\$0",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline6!
+                                          .copyWith(
+                                              fontWeight: FontWeight.w400,
+                                              color: Colors.black),
+                                    ),
                         ),
                       ],
                     ),

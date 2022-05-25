@@ -55,12 +55,12 @@ class HomePageProducts extends ConsumerWidget {
           }
         });
 
-        developer.log('log me 48:  $productsState',
-            name: 'my.app.Produccccccccccccct');
+        //developer.log('log me 48:  $productsState',
+        //    name: 'my.app.Produccccccccccccct');
 
         if (productsState.products.isEmpty) {
-          developer.log('log me 52:  $productsState',
-              name: 'my.app.Produccccccccccccct 51');
+          // developer.log('log me 52:  $productsState',
+          //     name: 'my.app.Produccccccccccccct 51');
           if (!productsState.hasNext && !productsState.isLoading) {
             return const Center(
               child: Text("No Products"),
@@ -72,8 +72,8 @@ class HomePageProducts extends ConsumerWidget {
             ),
           );
         }
-        developer.log('log me 63:  $productsState',
-            name: 'my.app.Produccccccccccccct 51');
+        // developer.log('log me 63:  $productsState',
+        //     name: 'my.app.Produccccccccccccct 51');
         return _buildProductList(productsState.products, productsState);
 
         ///Main Screen
