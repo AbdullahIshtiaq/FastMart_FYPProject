@@ -24,6 +24,7 @@ class ProfileOptions extends StatelessWidget {
             border: Border.all(color: Colors.white, width: 2),
             borderRadius:
                 const BorderRadius.all(Radius.circular(defaultBorderRadius)),
+            boxShadow: myBoxShadow,
           ),
           child: InkWell(
             onTap: () {
@@ -57,6 +58,7 @@ class ProfileOptions extends StatelessWidget {
             border: Border.all(color: Colors.white, width: 2),
             borderRadius:
                 const BorderRadius.all(Radius.circular(defaultBorderRadius)),
+            boxShadow: myBoxShadow,
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -81,6 +83,7 @@ class ProfileOptions extends StatelessWidget {
             border: Border.all(color: Colors.white, width: 2),
             borderRadius:
                 const BorderRadius.all(Radius.circular(defaultBorderRadius)),
+            boxShadow: myBoxShadow,
           ),
           child: InkWell(
             onTap: (){

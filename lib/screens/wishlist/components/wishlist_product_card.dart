@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:stylish/models/Product.dart';
+import 'package:stylish/models/MyCategory.dart';
+import 'package:stylish/models/MyProduct.dart';
 import 'package:stylish/models/Wishlist.dart';
 
 import '../../../constants.dart';
 import '../../../models/Cart.dart';
+import '../../../utils/shared_preferences.dart';
 import '../../details/details_screen.dart';
 
 class WishlistProductCard extends StatefulWidget {
@@ -17,7 +19,7 @@ class WishlistProductCard extends StatefulWidget {
   }) : super(key: key);
 
   final WishlistController wishlistController;
-  final Product product;
+  final WishlistProduct product;
   final int index;
 
   @override
@@ -25,7 +27,7 @@ class WishlistProductCard extends StatefulWidget {
 }
 
 class _WishlistProductCardState extends State<WishlistProductCard> {
-  late Product product;
+  late WishlistProduct product;
 
   final cartController = Get.put(CartController());
   bool inCart = false;
@@ -39,24 +41,56 @@ class _WishlistProductCardState extends State<WishlistProductCard> {
   }
 
   bool checkInCart() {
-    // if (cartController.cartProducts.containsKey(product)) {
-    //   return true;
-    // } else {
-    //   return false;
-    // }
+    for (var item in cartController.cartProducts) {
+      if (item.productId == product.productId) {
+        return true;
+      }
+    }
     return false;
+  }
+
+  String splitImgPath(String string, String separator, {int max = 0}) {
+    List<String> result = [];
+
+    if (separator.isEmpty) {
+      result.add(string);
+      return "";
+    }
+
+    while (true) {
+      var index = string.indexOf(separator, 0);
+      if (index == -1 || (max > 0 && result.length >= max)) {
+        result.add(string);
+        break;
+      }
+
+      result.add(string.substring(0, index));
+      string = string.substring(index + separator.length);
+    }
+    return "/" + result[3];
   }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        MyProduct model = MyProduct(
+            productName: product.productName,
+            category:
+                MyCategory(categoryName: "", categoryId: "", categoryImg: ""),
+            productShortDesc: "",
+            productPrice: (double.parse(product.productPrice)),
+            productSalePrice: 0.0,
+            productImg: splitImgPath(product.productImg, "/", max: 3),
+            productSKU: "",
+            productType: "",
+            stockStatus: "",
+            productId: product.productId);
+
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => DetailsScreen(
-                  product:
-                      widget.wishlistController.wishlistProducts[widget.index]),
+              builder: (context) => DetailsScreen(product: model),
             )).then((_) => setState(() {
               inCart = checkInCart();
             }));
@@ -78,10 +112,11 @@ class _WishlistProductCardState extends State<WishlistProductCard> {
                   borderRadius:
                       BorderRadius.all(Radius.circular(defaultBorderRadius)),
                 ),
-                child: Image.asset(
-                  widget.product.image,
-                  //height: 100,
-                ),
+                child: Image.network(widget.product.productImg),
+                // Image.asset(
+                //   widget.product.image,
+                //   //height: 100,
+                // ),
               ),
             ),
             const SizedBox(width: defaultPadding / 2),
@@ -91,12 +126,12 @@ class _WishlistProductCardState extends State<WishlistProductCard> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    widget.product.title,
+                    widget.product.productName,
                     style: const TextStyle(color: Colors.black),
                   ),
                   const SizedBox(height: defaultPadding / 2),
                   Text(
-                    "\$${widget.product.price}",
+                    "\$${widget.product.productPrice}",
                     style: Theme.of(context).textTheme.subtitle2,
                   ),
                 ],
@@ -113,25 +148,34 @@ class _WishlistProductCardState extends State<WishlistProductCard> {
                       color: primaryColor,
                     ),
                     onPressed: () {
-                      // if (inCart) {
-                      //   Get.snackbar(
-                      //     "Already In Cart",
-                      //     "",
-                      //     snackPosition: SnackPosition.BOTTOM,
-                      //     duration: const Duration(seconds: 1),
-                      //   );
-                      // } else {
-                      //   Get.snackbar(
-                      //     "Added Successfully",
-                      //     "",
-                      //     snackPosition: SnackPosition.BOTTOM,
-                      //     duration: const Duration(seconds: 1),
-                      //   );
-                      //   cartController.addProductToCart(widget.product);
-                      //   setState(() {
-                      //     inCart = true;
-                      //   });
-                      // }
+                      if (inCart) {
+                        Get.snackbar(
+                          "Already In Cart",
+                          "",
+                          snackPosition: SnackPosition.BOTTOM,
+                          duration: const Duration(seconds: 1),
+                        );
+                      } else {
+                        Get.snackbar(
+                          "Added Successfully",
+                          "",
+                          snackPosition: SnackPosition.BOTTOM,
+                          duration: const Duration(seconds: 1),
+                        );
+                        CartProduct model = CartProduct(
+                            productId: product.productId,
+                            productImg: product.productImg,
+                            productName: product.productName,
+                            productPrice: product.productPrice.toString(),
+                            qty: 1);
+
+                        cartController.addProductToCart(model);
+                        UserSharedPreferences.setCartList(
+                            cartController.cartProducts);
+                        setState(() {
+                          inCart = true;
+                        });
+                      }
                     },
                   ),
                   Expanded(

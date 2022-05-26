@@ -17,37 +17,55 @@ class SearchForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Form(
-      child: TextFormField(
-        onSaved: (value) {},
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: Colors.white,
-          hintText: "Search",
-          border: outlineInputBorder,
-          enabledBorder: outlineInputBorder,
-          focusedBorder: outlineInputBorder,
-          errorBorder: outlineInputBorder,
-          prefixIcon: const Icon(
-            CupertinoIcons.search,
-            color: Colors.grey,
-          ),
-          suffixIcon: Padding(
-            padding: const EdgeInsets.symmetric(
-                horizontal: defaultPadding, vertical: defaultPadding / 2),
-            child: SizedBox(
-              width: 40,
-              height: 40,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: primaryColor,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(12)),
+      child: Container(
+        //height: 60,
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(defaultBorderRadius)),
+          boxShadow: [
+            BoxShadow(
+              color: lightGrey,
+              blurRadius: 0.3,
+              spreadRadius: 0.5,
+              offset: Offset(0.5, 0.5), // shadow direction: bottom right
+            )
+          ],
+        ),
+        child: TextFormField(
+          onSaved: (value) {},
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: Colors.white,
+            hintText: "Search",
+            hintStyle: const TextStyle(
+              color: Colors.grey,
+            ),
+            border: outlineInputBorder,
+            enabledBorder: outlineInputBorder,
+            focusedBorder: outlineInputBorder,
+            errorBorder: outlineInputBorder,
+            prefixIcon: const Icon(
+              CupertinoIcons.search,
+              color: Colors.grey,
+            ),
+            suffixIcon: Padding(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: defaultPadding, vertical: defaultPadding / 2),
+              child: SizedBox(
+                width: 40,
+                height: 40,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: primaryColor,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(12)),
+                    ),
                   ),
+                  onPressed: () {
+                    Scaffold.of(context).openEndDrawer();
+                  },
+                  child: SvgPicture.asset("assets/icons/Filter.svg"),
                 ),
-                onPressed: () {
-                  Scaffold.of(context).openEndDrawer();
-                },
-                child: SvgPicture.asset("assets/icons/Filter.svg"),
               ),
             ),
           ),

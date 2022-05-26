@@ -18,13 +18,13 @@ final categoriesProvider =
   },
 );
 
-final productsProvider =
-    FutureProvider.family<List<MyProduct>?, ProductFilterModel>(
-  (ref, productFilterModel) {
-    final apiRepository = ref.watch(apiService);
-    return apiRepository.getProducts(productFilterModel);
-  },
-);
+// final productsProvider =
+//     FutureProvider.family<List<MyProduct>?, ProductFilterModel>(
+//   (ref, productFilterModel) {
+//     final apiRepository = ref.watch(apiService);
+//     return apiRepository.getProducts(productFilterModel);
+//   },
+// );
 
 final productsFilterProvider =
     StateNotifierProvider<ProductFilterNotifier, ProductFilterModel>(

@@ -107,16 +107,16 @@ class CartController extends GetxController {
   //     .map((product) => int.parse(product.productPrice) * product.qty)
   //     .toList();
 
-  double getTotal() {
-    double total = 0;
-    for (var item in cartProducts) {
-      developer.log('log me 110: $item.productPrice)', name: 'my.app.Total');
-      total += ((double.parse(item.productPrice) * item.qty));
-    }
-    developer.log('log me 112: $total', name: 'my.app.Total');
-    print("Line 114: " + total.toString());
-    return total;
-  }
+  // double getTotal() {
+  //   double total = 0;
+  //   for (var item in cartProducts) {
+  //     developer.log('log me 110: $item.productPrice)', name: 'my.app.Total');
+  //     total += ((double.parse(item.productPrice) * item.qty));
+  //   }
+  //   developer.log('log me 112: $total', name: 'my.app.Total');
+  //   print("Line 114: " + total.toString());
+  //   return total;
+  // }
 
   //get total => getTotal().obs;
 

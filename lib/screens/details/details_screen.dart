@@ -34,11 +34,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
   }
 
   bool checkInWishlist() {
-    if (wishlistController.wishlistProducts.contains(product)) {
-      return true;
-    } else {
-      return false;
+    for (var item in wishlistController.wishlistProducts) {
+      if (item.productId == product.productId) {
+        return true;
+      }
     }
+    return false;
   }
 
   bool checkInCart() {
@@ -53,17 +54,25 @@ class _DetailsScreenState extends State<DetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: widget.product.bgColor,
-      backgroundColor: Colors.white,
+      backgroundColor:  const Color(0xFFFEFBF9),
+      //backgroundColor: Colors.white,
       appBar: AppBar(
         leading: const BackButton(color: Colors.black),
         actions: [
           IconButton(
             onPressed: () {
-              //wishlistController.addProductToWishlist(product);
-              // setState(() {
-              //   inWishlist = !inWishlist;
-              // });
+              WishlistProduct model = WishlistProduct(
+                  productId: product.productId,
+                  productImg: product.fullImagePath,
+                  productName: product.productName,
+                  productPrice: product.productPrice.toString());
+
+              wishlistController.addProductToWishlist(model);
+              UserSharedPreferences.setWishList(
+                  wishlistController.wishlistProducts);
+              setState(() {
+                inWishlist = !inWishlist;
+              });
             },
             icon: Icon(
               inWishlist ? CupertinoIcons.heart_solid : CupertinoIcons.heart,

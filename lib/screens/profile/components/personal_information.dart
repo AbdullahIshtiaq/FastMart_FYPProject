@@ -16,6 +16,7 @@ class PersonalInfo extends StatelessWidget {
         border: Border.all(color: Colors.white, width: 2),
         borderRadius:
             const BorderRadius.all(Radius.circular(defaultBorderRadius)),
+        boxShadow: myBoxShadow,
       ),
       child: Column(
         children: [

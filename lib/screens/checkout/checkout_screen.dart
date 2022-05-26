@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:stylish/constants.dart';
 import 'package:stylish/screens/checkout/components/billing_info.dart';
 import 'package:stylish/screens/payment/payment_successful_screen.dart';
+import 'package:stylish/utils/shared_preferences.dart';
 
 import '../../models/Cart.dart';
 import 'components/checkout_items_list.dart';
@@ -19,24 +20,26 @@ class CheckoutScreen extends StatefulWidget {
 class _CheckoutScreenState extends State<CheckoutScreen> {
   bool changeButton = false;
 
-
   CartController cartController = Get.put(CartController());
 
   onProceedClick(BuildContext context) async {
+    UserSharedPreferences.deleteCartList();
     setState(() {
       changeButton = true;
     });
     await Future.delayed(const Duration(seconds: 1));
-    await Navigator.push(
+    // await Navigator.push(
+    //     context,
+    //     MaterialPageRoute(
+    //       builder: (context) => const PaymentSuccessfulScreen(),
+    //     ));
+    await Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (context) => const PaymentSuccessfulScreen(),
-        ));
-    // await Navigator.pushAndRemoveUntil(
-    //     context,
-    //     MaterialPageRoute(builder: (BuildContext context) => const PaymentSuccessfulScreen()),
-    //         (Route<dynamic> route) => false
-    // );
+            builder: (BuildContext context) => PaymentSuccessfulScreen(
+                  cartController: cartController,
+                )),
+        (Route<dynamic> route) => false);
     setState(() {
       changeButton = false;
     });
@@ -62,13 +65,17 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               "Your Items",
               style: Theme.of(context).textTheme.headline6,
             ),
-            CheckoutItemsList(cartController: cartController,),
+            CheckoutItemsList(
+              cartController: cartController,
+            ),
             const SizedBox(height: defaultPadding * 2),
             Text(
               "Billing Information",
               style: Theme.of(context).textTheme.headline6,
             ),
-            BillingInfo(cartController: cartController,),
+            BillingInfo(
+              cartController: cartController,
+            ),
             const SizedBox(height: defaultPadding * 2),
             Text(
               "Payment Methods",

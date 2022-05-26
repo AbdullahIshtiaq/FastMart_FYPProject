@@ -5,6 +5,7 @@ import 'package:stylish/models/ProductFilterModel.dart';
 import 'package:stylish/services/api_service.dart';
 
 class ProductNotifier extends StateNotifier<ProductsState> {
+
   final APIService apiService;
   final ProductFilterModel productFilterModel;
 

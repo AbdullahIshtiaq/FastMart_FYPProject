@@ -1,3 +1,5 @@
+import 'dart:developer' as developer;
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,9 +12,7 @@ import '../../../constants.dart';
 import '../../../models/MyCategory.dart';
 
 class Categories extends ConsumerWidget {
-  const Categories({
-    Key? key,
-  }) : super(key: key);
+  const Categories({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -35,12 +35,15 @@ class Categories extends ConsumerWidget {
         error: (_, __) => const Center(
               child: Text("Error"),
             ),
-        loading: () => const Center(child: CircularProgressIndicator(color: primaryColor,)));
+        loading: () => const Center(
+                child: CircularProgressIndicator(
+              color: primaryColor,
+            )));
   }
 
   Widget _buildCategoryList(List<MyCategory> categoryList, WidgetRef ref) {
     return SizedBox(
-      height: 80,
+      height: 100,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         itemCount: categoryList.length,
@@ -51,7 +54,9 @@ class Categories extends ConsumerWidget {
             ProductFilterModel filterModel = ProductFilterModel(
                 paginationModel: MyPaginationModel(page: 1, pageSize: 10),
                 categoryId: categoryList[index].categoryId);
-            ref.read(productsFilterProvider.notifier)
+
+            ref
+                .read(productsFilterProvider.notifier)
                 .setProductFilter(filterModel);
             ref.read(productsNotifierProvider.notifier).getProducts();
 
@@ -62,7 +67,19 @@ class Categories extends ConsumerWidget {
                     categoryId: categoryList[index].categoryId,
                     categoryName: categoryList[index].categoryName,
                   ),
-                ));
+                )).then((value) {
+              developer.log('In Then 69', name: 'my.app.Categories');
+              print("On Back 69");
+              ProductFilterModel filterModel = ProductFilterModel(
+                  paginationModel: MyPaginationModel(page: 1, pageSize: 10));
+
+              ref
+                  .read(productsFilterProvider.notifier)
+                  .setProductFilter(filterModel);
+              ref.read(productsNotifierProvider.notifier).getProducts();
+              //ref.watch(productsNotifierProvider);
+              print("On Back");
+            });
           },
         ),
         separatorBuilder: (context, index) =>

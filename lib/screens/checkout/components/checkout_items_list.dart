@@ -36,11 +36,11 @@ class CheckoutItemsList extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // Text(
-                    //     "${cartController.cartProducts.keys.toList()[index].title} "
-                    //         "(${cartController.cartProducts.values.toList()[index]})"),
-                    // Text(
-                    //     "\$${cartController.cartProducts.keys.toList()[index].price}"),
+                    Text(
+                        "${cartController.cartProducts[index].productName} "
+                            "(${cartController.cartProducts[index].qty})"),
+                    Text(
+                        "\$${cartController.cartProducts[index].productPrice}"),
                   ],
                 ),
               ),

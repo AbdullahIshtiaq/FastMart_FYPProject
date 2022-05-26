@@ -15,11 +15,13 @@ class OrderCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: const EdgeInsets.all(2),
       padding: const EdgeInsets.all(defaultPadding),
       decoration: const BoxDecoration(
         color: Colors.white,
         //border: Border.all(color: Colors.white, width: 2),
         borderRadius: BorderRadius.all(Radius.circular(defaultBorderRadius)),
+        boxShadow: myBoxShadow,
       ),
       child: Row(
         children: [

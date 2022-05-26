@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:stylish/utils/shared_preferences.dart';
 
 import '../../../constants.dart';
@@ -75,17 +76,19 @@ class _CartProductCardState extends State<CartProductCard> {
                         color: primaryColor,
                       ),
                       onPressed: () {
-                        setState(() {
-                          widget.cartController
-                              .minusProductFromCart(widget.cartProduct);
-                          UserSharedPreferences.setCartList(
-                              widget.cartController.cartProducts);
-                        });
+                        //setState(() {
+                        widget.cartController
+                            .minusProductFromCart(widget.cartProduct);
+                        UserSharedPreferences.setCartList(
+                            widget.cartController.cartProducts);
+                        // });
                       },
                     ),
-                    Text(
-                      widget.cartProduct.qty.toString(),
-                      style: Theme.of(context).textTheme.bodyLarge,
+                    GetBuilder<CartController>(
+                      builder: (control) => Text(
+                        widget.cartProduct.qty.toString(),
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
                     ),
                     Expanded(
                       child: IconButton(
@@ -94,12 +97,12 @@ class _CartProductCardState extends State<CartProductCard> {
                           color: primaryColor,
                         ),
                         onPressed: () {
-                          setState(() {
-                            widget.cartController
-                                .addProductToCart(widget.cartProduct);
-                            UserSharedPreferences.setCartList(
-                                widget.cartController.cartProducts);
-                          });
+                          // setState(() {
+                          widget.cartController
+                              .addProductToCart(widget.cartProduct);
+                          UserSharedPreferences.setCartList(
+                              widget.cartController.cartProducts);
+                          //  });
                         },
                       ),
                     ),

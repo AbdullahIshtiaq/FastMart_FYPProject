@@ -20,20 +20,20 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
 
   CartController cartController = Get.put(CartController());
 
-  onProceedClick(BuildContext context) async {
-    setState(() {
-      changeButton = true;
-    });
-    await Future.delayed(const Duration(seconds: 1));
-    await Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const PaymentSuccessfulScreen(),
-        ));
-    setState(() {
-      changeButton = false;
-    });
-  }
+  // onProceedClick(BuildContext context) async {
+  //   setState(() {
+  //     changeButton = true;
+  //   });
+  //   await Future.delayed(const Duration(seconds: 1));
+  //   await Navigator.push(
+  //       context,
+  //       MaterialPageRoute(
+  //         builder: (context) => const PaymentSuccessfulScreen(),
+  //       ));
+  //   setState(() {
+  //     changeButton = false;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {

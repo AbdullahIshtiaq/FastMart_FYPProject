@@ -35,4 +35,29 @@ class UserSharedPreferences {
       print("Line 52: Cart Deleted");
     }
   }
+
+
+  static Future setWishList(RxList<dynamic> rxList) async {
+    var mapInString = jsonEncode(rxList);
+    print("Line 30: SetCart " + mapInString);
+    await _sharedPreferences?.setString('wishlist', mapInString);
+  }
+
+  static String? getWishList() {
+    String? mapInString;
+    if (_sharedPreferences!.containsKey('wishlist')) {
+      mapInString = _sharedPreferences!.getString('wishlist');
+      print("Line 38: GetCart Found");
+    } else {
+      print("Line 38: GetCart Not Found");
+    }
+    return mapInString;
+  }
+
+  static void deleteWishList() {
+    if (_sharedPreferences!.containsKey('wishlist')) {
+      _sharedPreferences!.remove('wishlist');
+      print("Line 52: Cart Deleted");
+    }
+  }
 }

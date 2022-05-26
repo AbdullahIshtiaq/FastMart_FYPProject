@@ -1,5 +1,3 @@
-import 'dart:developer' as developer;
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stylish/screens/home/components/product_card.dart';
@@ -13,9 +11,7 @@ import '../../../providers/myProvider.dart';
 import '../../details/details_screen.dart';
 
 class HomePageProducts extends ConsumerWidget {
-  HomePageProducts({
-    Key? key,
-  }) : super(key: key);
+  HomePageProducts({Key? key}) : super(key: key);
 
   final ScrollController _scrollController = ScrollController();
 
@@ -24,16 +20,13 @@ class HomePageProducts extends ConsumerWidget {
     return _productList(ref);
   }
 
-  void getData(WidgetRef ref) {
-    ProductFilterModel filterModel = ProductFilterModel(
-        paginationModel: MyPaginationModel(page: 1, pageSize: 10));
-
-    ref.read(productsFilterProvider.notifier).setProductFilter(filterModel);
-    ref.read(productsNotifierProvider.notifier).getProducts();
-  }
+  void getData(WidgetRef ref) {}
 
   Future<void> _processingData(WidgetRef ref) async {
-    getData(ref);
+    ProductFilterModel filterModel = ProductFilterModel(
+        paginationModel: MyPaginationModel(page: 1, pageSize: 10));
+    ref.read(productsFilterProvider.notifier).setProductFilter(filterModel);
+    ref.read(productsNotifierProvider.notifier).getProducts();
   }
 
   Widget _productList(WidgetRef ref) {
@@ -54,13 +47,9 @@ class HomePageProducts extends ConsumerWidget {
             }
           }
         });
-
-        //developer.log('log me 48:  $productsState',
-        //    name: 'my.app.Produccccccccccccct');
-
+        //developer.log('log me 48: $productsState', name: 'my.app.Produt');
         if (productsState.products.isEmpty) {
-          // developer.log('log me 52:  $productsState',
-          //     name: 'my.app.Produccccccccccccct 51');
+          // developer.log('log me 52: $productsState', name: 'my.app.Produt 51');
           if (!productsState.hasNext && !productsState.isLoading) {
             return const Center(
               child: Text("No Products"),
@@ -72,64 +61,12 @@ class HomePageProducts extends ConsumerWidget {
             ),
           );
         }
-        // developer.log('log me 63:  $productsState',
-        //     name: 'my.app.Produccccccccccccct 51');
+        //developer.log('log me 63: $productsState', name: 'my.app.Produt 51');
         return _buildProductList(productsState.products, productsState);
 
         ///Main Screen
       },
     );
-
-    final productsState = ref.watch(productsNotifierProvider);
-
-    // _scrollController.addListener(() {
-    //   if (_scrollController.position.pixels ==
-    //       _scrollController.position.maxScrollExtent) {
-    //     final productViewModel = ref.read(productsNotifierProvider.notifier);
-    //     final productState = ref.watch(productsNotifierProvider);
-    //
-    //     if (productState.hasNext) {
-    //       productViewModel.getProducts();
-    //     }
-    //   }
-    // });
-
-    // developer.log('log me 48:  $productsState', name: 'my.app.Produccccccccccccct');
-    //
-    // if (productsState.products.isEmpty) {
-    //   developer.log('log me 52:  $productsState', name: 'my.app.Produccccccccccccct 51');
-    //   if (!productsState.hasNext && !productsState.isLoading) {
-    //     return const Center(
-    //       child: Text("No Products"),
-    //     );
-    //   }
-    //   return const Center(
-    //     child: CircularProgressIndicator(
-    //       color: primaryColor,
-    //     ),
-    //   );
-    // }
-    // developer.log('log me 63:  $productsState', name: 'my.app.Produccccccccccccct 51');
-    // return _buildProductList(productsState.products, productsState);
-
-    // final products = ref.watch(
-    //   productsProvider(
-    //     ProductFilterModel(
-    //       paginationModel:  MyPaginationModel(page: 1, pageSize: 10),
-    //     )
-    //   ),
-    // );
-    //
-    // developer.log('log me 35:  $products', name: 'my.app.product');
-    //
-    // return products.when(
-    //     data: (list) {
-    //       return _buildProductList(list!);
-    //     },
-    //     error: (_, __) => const Center(
-    //       child: Text("Error"),
-    //     ),
-    //     loading: () => const Center(child: CircularProgressIndicator(color: primaryColor,)));
   }
 
   Widget _buildProductList(
@@ -170,7 +107,7 @@ class HomePageProducts extends ConsumerWidget {
           Center(
             child: Visibility(
               visible:
-              productsState.isLoading && productsState.products.isNotEmpty,
+                  productsState.isLoading && productsState.products.isNotEmpty,
               child: const SizedBox(
                 height: 35,
                 width: 35,

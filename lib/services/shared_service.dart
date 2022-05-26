@@ -4,6 +4,7 @@ import 'package:api_cache_manager/models/cache_db_model.dart';
 import 'package:api_cache_manager/utils/cache_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:stylish/models/login_response_model.dart';
+import 'package:stylish/utils/shared_preferences.dart';
 
 import '../screens/register/login_screen.dart';
 
@@ -35,6 +36,8 @@ class SharedService {
 
   static Future<void> logout(BuildContext context) async {
     await APICacheManager().deleteCache("login_details");
+    UserSharedPreferences.deleteCartList();
+    UserSharedPreferences.deleteWishList();
     Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
       builder: (context) => const LoginScreen(),
     ), (route) => false);
