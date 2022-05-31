@@ -120,9 +120,9 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       return const ToShopScreen();
     }
     if (index == 4) {
-      return const ProfileScreen();
+      return ProfileScreen();
     }
-    return HomeScreen();
+    return const HomeScreen();
   }
 
   @override

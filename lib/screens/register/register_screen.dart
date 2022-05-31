@@ -83,107 +83,139 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     key: _registrationFormKey,
                     child: Column(
                       children: [
-                        TextFormField(
-                          validator: (value) {
-                            if (value!.isNotEmpty) {
-                              return null;
-                            } else {
-                              return 'Name required';
-                            }
-                          },
-                          controller: myNameController,
-                          decoration: const InputDecoration(
-                            filled: true,
-                            fillColor: Colors.white,
-                            hintText: "Name",
-                            border: outlineInputBorder,
-                            hintStyle: TextStyle(color: Colors.grey),
-                            enabledBorder: outlineInputBorder,
-                            focusedBorder: outlineInputBorder,
-                            errorBorder: outlineInputBorder,
-                            prefixIcon: Icon(
-                              CupertinoIcons.person_fill,
-                              color: primaryColor,
+                        Container(
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(
+                                Radius.circular(defaultBorderRadius)),
+                            boxShadow: myBoxShadow,
+                          ),
+                          child: TextFormField(
+                            validator: (value) {
+                              if (value!.isNotEmpty) {
+                                return null;
+                              } else {
+                                return 'Name required';
+                              }
+                            },
+                            controller: myNameController,
+                            decoration: const InputDecoration(
+                              filled: true,
+                              fillColor: Colors.white,
+                              hintText: "Name",
+                              border: outlineInputBorder,
+                              hintStyle: TextStyle(color: Colors.grey),
+                              enabledBorder: outlineInputBorder,
+                              focusedBorder: outlineInputBorder,
+                              errorBorder: outlineInputBorder,
+                              prefixIcon: Icon(
+                                CupertinoIcons.person_fill,
+                                color: primaryColor,
+                              ),
                             ),
                           ),
                         ),
                         const SizedBox(
                           height: 8,
                         ),
-                        TextFormField(
-                          validator: (value) {
-                            if (isEmailValid(value!)) {
-                              return null;
-                            } else {
-                              return 'Enter a valid email address';
-                            }
-                          },
-                          controller: myEmailController,
-                          decoration: const InputDecoration(
-                            filled: true,
-                            fillColor: Colors.white,
-                            hintText: "Email",
-                            border: outlineInputBorder,
-                            hintStyle: TextStyle(color: Colors.grey),
-                            enabledBorder: outlineInputBorder,
-                            focusedBorder: outlineInputBorder,
-                            errorBorder: outlineInputBorder,
-                            prefixIcon: Icon(
-                              CupertinoIcons.mail_solid,
-                              color: primaryColor,
+                        Container(
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(
+                                Radius.circular(defaultBorderRadius)),
+                            boxShadow: myBoxShadow,
+                          ),
+                          child: TextFormField(
+                            validator: (value) {
+                              if (isEmailValid(value!)) {
+                                return null;
+                              } else {
+                                return 'Enter a valid email address';
+                              }
+                            },
+                            controller: myEmailController,
+                            decoration: const InputDecoration(
+                              filled: true,
+                              fillColor: Colors.white,
+                              hintText: "Email",
+                              border: outlineInputBorder,
+                              hintStyle: TextStyle(color: Colors.grey),
+                              enabledBorder: outlineInputBorder,
+                              focusedBorder: outlineInputBorder,
+                              errorBorder: outlineInputBorder,
+                              prefixIcon: Icon(
+                                CupertinoIcons.mail_solid,
+                                color: primaryColor,
+                              ),
                             ),
                           ),
                         ),
                         const SizedBox(
                           height: 8,
                         ),
-                        TextFormField(
-                          validator: (value) {
-                            if (isPasswordValid(value!)) {
-                              return null;
-                            } else {
-                              return 'Password length must be 6 digits';
-                            }
-                          },
-                          controller: myPasswordController,
-                          decoration: const InputDecoration(
-                            filled: true,
-                            fillColor: Colors.white,
-                            hintText: "Password",
-                            border: outlineInputBorder,
-                            hintStyle: TextStyle(color: Colors.grey),
-                            enabledBorder: outlineInputBorder,
-                            focusedBorder: outlineInputBorder,
-                            errorBorder: outlineInputBorder,
-                            prefixIcon: Icon(
-                              CupertinoIcons.lock_fill,
-                              color: primaryColor,
+                        Container(
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(
+                                Radius.circular(defaultBorderRadius)),
+                            boxShadow: myBoxShadow,
+                          ),
+                          child: TextFormField(
+                            validator: (value) {
+                              if (isPasswordValid(value!)) {
+                                return null;
+                              } else {
+                                return 'Password length must be 6 digits';
+                              }
+                            },
+                            controller: myPasswordController,
+                            decoration: const InputDecoration(
+                              filled: true,
+                              fillColor: Colors.white,
+                              hintText: "Password",
+                              border: outlineInputBorder,
+                              hintStyle: TextStyle(color: Colors.grey),
+                              enabledBorder: outlineInputBorder,
+                              focusedBorder: outlineInputBorder,
+                              errorBorder: outlineInputBorder,
+                              prefixIcon: Icon(
+                                CupertinoIcons.lock_fill,
+                                color: primaryColor,
+                              ),
                             ),
                           ),
                         ),
                         const SizedBox(
                           height: 8,
                         ),
-                        TextFormField(
-                          validator: (value) {
-                            if (isConfirmPasswordValid(value!)) {
-                              return null;
-                            } else {
-                              return 'Passwords not matched';
-                            }
-                          },
-                          decoration: const InputDecoration(
-                            filled: true,
-                            fillColor: Colors.white,
-                            hintText: "Confirm Password",
-                            border: outlineInputBorder,
-                            hintStyle: TextStyle(color: Colors.grey),
-                            enabledBorder: outlineInputBorder,
-                            focusedBorder: outlineInputBorder,
-                            errorBorder: outlineInputBorder,
-                            prefixIcon: Icon(
-                              CupertinoIcons.lock_fill,
-                              color: primaryColor,
+                        Container(
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(
+                                Radius.circular(defaultBorderRadius)),
+                            boxShadow: myBoxShadow,
+                          ),
+                          child: TextFormField(
+                            validator: (value) {
+                              if (isConfirmPasswordValid(value!)) {
+                                return null;
+                              } else {
+                                return 'Passwords not matched';
+                              }
+                            },
+                            decoration: const InputDecoration(
+                              filled: true,
+                              fillColor: Colors.white,
+                              hintText: "Confirm Password",
+                              border: outlineInputBorder,
+                              hintStyle: TextStyle(color: Colors.grey),
+                              enabledBorder: outlineInputBorder,
+                              focusedBorder: outlineInputBorder,
+                              errorBorder: outlineInputBorder,
+                              prefixIcon: Icon(
+                                CupertinoIcons.lock_fill,
+                                color: primaryColor,
+                              ),
                             ),
                           ),
                         ),

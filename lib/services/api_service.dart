@@ -32,6 +32,7 @@ class APIService {
 
     if (response.statusCode == 200) {
       await SharedService.setLoginDetails(loginResponseModel(response.body));
+      print("Response 35: "+response.body);
       return true;
     } else {
       return false;
