@@ -1,10 +1,14 @@
 class Config {
   static const String appName = "FastMart";
   //Home
-  static const String apiURL = "192.168.1.9:4000";
-  static const String imgURL = "http://192.168.1.9:4000";
+  // static const String apiURL = "192.168.1.9:4000";
+  // static const String imgURL = "http://192.168.1.9:4000";
 
-  // Uni
+  //Home1
+  static const String apiURL = "192.168.1.8:4000";
+  static const String imgURL = "http://192.168.1.8:4000";
+
+  //Uni Mobile Hotspot
   // static const String apiURL = "192.168.30.176:4000";
   // static const String imgURL = "http://192.168.30.176:4000";
 
@@ -21,5 +25,4 @@ class Config {
   static const String productAPI = "/products/product";
 
   static const int pageSized = 10;
-  
 }
