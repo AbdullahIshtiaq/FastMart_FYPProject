@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:stylish/config.dart';
 import 'package:stylish/models/Category.dart';
+import 'package:stylish/models/MyProduct.dart';
 
 import '../../../constants.dart';
 
 class OrderItemImages extends StatelessWidget {
-  const OrderItemImages({
-    Key? key,
-  }) : super(key: key);
+  const OrderItemImages({Key? key, required this.productsList})
+      : super(key: key);
+
+  final List<MyProduct> productsList;
 
   @override
   Widget build(BuildContext context) {
@@ -15,10 +18,10 @@ class OrderItemImages extends StatelessWidget {
       height: 80,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
-        itemCount: demo_categories.length,
-        itemBuilder: (context, index) => CategoryCard(
-          icon: demo_categories[index].icon,
-          title: demo_categories[index].title,
+        itemCount: productsList.length,
+        itemBuilder: (context, index) => ProductImgCard(
+          icon: productsList[index].productImg,
+          title: productsList[index].productName,
           press: () {},
         ),
         separatorBuilder: (context, index) =>
@@ -28,8 +31,8 @@ class OrderItemImages extends StatelessWidget {
   }
 }
 
-class CategoryCard extends StatelessWidget {
-  const CategoryCard({
+class ProductImgCard extends StatelessWidget {
+  const ProductImgCard({
     Key? key,
     required this.icon,
     required this.title,
@@ -53,7 +56,14 @@ class CategoryCard extends StatelessWidget {
             vertical: defaultPadding / 2, horizontal: defaultPadding / 4),
         child: Column(
           children: [
-            SvgPicture.asset(icon),
+            Expanded(
+              child: Image.network(
+                Config.imgURL + icon,
+                height: 50,
+                width: 50,
+              ),
+            ),
+            // SvgPicture.asset(icon),
             const SizedBox(height: defaultPadding / 2),
             Text(
               title,

@@ -16,10 +16,10 @@ import 'package:stylish/utils/shared_preferences.dart';
 
 Widget _defaultHome = const LoginScreen();
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   bool _result = await SharedService.isLoggedIn();
-  if(_result){
+  if (_result) {
     _defaultHome = const MyStatefulWidget();
   }
   await UserSharedPreferences.init();
@@ -108,7 +108,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   Widget _selectedScreen(int index) {
     if (index == 0) {
-      return HomeScreen();
+      return const HomeScreen();
     }
     if (index == 1) {
       return const WishlistScreen();
@@ -162,7 +162,6 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         selectedItemColor: primaryColor,
         unselectedItemColor: Colors.grey,
         onTap: _onItemTapped,
-
       ),
     );
   }

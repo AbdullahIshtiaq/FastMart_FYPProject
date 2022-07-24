@@ -24,5 +24,7 @@ class Config {
 
   static const String productAPI = "/products/product";
 
+  static const String orderAPI = "/orders/orderOfUser";
+
   static const int pageSized = 10;
 }

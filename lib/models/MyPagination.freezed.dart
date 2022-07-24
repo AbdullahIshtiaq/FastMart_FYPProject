@@ -141,9 +141,9 @@ abstract class _MyPaginationModel implements MyPaginationModel {
       required final int pageSize}) = _$_MyPaginationModel;
 
   @override
-  int get page => throw _privateConstructorUsedError;
+  int get page;
   @override
-  int get pageSize => throw _privateConstructorUsedError;
+  int get pageSize;
   @override
   @JsonKey(ignore: true)
   _$$_MyPaginationModelCopyWith<_$_MyPaginationModel> get copyWith =>

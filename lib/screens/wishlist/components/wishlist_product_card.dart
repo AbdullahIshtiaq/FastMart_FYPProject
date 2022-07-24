@@ -82,9 +82,9 @@ class _WishlistProductCardState extends State<WishlistProductCard> {
             productPrice: (double.parse(product.productPrice)),
             productSalePrice: 0.0,
             productImg: splitImgPath(product.productImg, "/", max: 3),
-            productSKU: "",
-            productType: "",
-            stockStatus: "",
+            //productSKU: "",
+            //productType: "",
+            //stockStatus: "",
             productId: product.productId);
 
         Navigator.push(

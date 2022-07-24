@@ -20,7 +20,7 @@ class HomePageProducts extends ConsumerWidget {
     return _productList(ref);
   }
 
-  void getData(WidgetRef ref) {}
+  // void getData(WidgetRef ref) {}
 
   Future<void> _processingData(WidgetRef ref) async {
     ProductFilterModel filterModel = ProductFilterModel(

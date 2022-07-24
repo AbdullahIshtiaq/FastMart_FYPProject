@@ -163,7 +163,9 @@ class _$_MyCategory implements _MyCategory {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_MyCategoryToJson(this);
+    return _$$_MyCategoryToJson(
+      this,
+    );
   }
 }
 
@@ -177,11 +179,11 @@ abstract class _MyCategory implements MyCategory {
       _$_MyCategory.fromJson;
 
   @override
-  String get categoryName => throw _privateConstructorUsedError;
+  String get categoryName;
   @override
-  String get categoryImg => throw _privateConstructorUsedError;
+  String get categoryImg;
   @override
-  String get categoryId => throw _privateConstructorUsedError;
+  String get categoryId;
   @override
   @JsonKey(ignore: true)
   _$$_MyCategoryCopyWith<_$_MyCategory> get copyWith =>

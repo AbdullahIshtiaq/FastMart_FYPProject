@@ -31,7 +31,7 @@ class ProfileOptions extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const OrdersScreen(),
+                    builder: (context) => OrdersScreen(),
                   ));
             },
             child: Column(
@@ -86,12 +86,11 @@ class ProfileOptions extends StatelessWidget {
             boxShadow: myBoxShadow,
           ),
           child: InkWell(
-            onTap: (){
+            onTap: () {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) =>
-                    const PaymentProfileScreen(),
+                    builder: (context) => const PaymentProfileScreen(),
                   ));
             },
             child: Column(

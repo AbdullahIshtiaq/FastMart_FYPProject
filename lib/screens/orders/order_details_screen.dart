@@ -1,15 +1,18 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:stylish/constants.dart';
-import 'package:stylish/screens/payment/payment_successful_screen.dart';
+import 'package:stylish/models/MyOrder.dart';
+import 'package:stylish/screens/orders/components/order_items_list.dart';
 
 import '../../models/Cart.dart';
 import '../checkout/components/checkout_items_list.dart';
 import 'components/order_item_images.dart';
 
 class OrderDetailsScreen extends StatefulWidget {
-  const OrderDetailsScreen({Key? key}) : super(key: key);
+  OrderDetailsScreen({Key? key, required this.order}) : super(key: key);
+
+  final MyOrder order;
+  List<CartProduct> productList = [];
 
   @override
   State<OrderDetailsScreen> createState() => _OrderDetailsScreenState();
@@ -18,22 +21,39 @@ class OrderDetailsScreen extends StatefulWidget {
 class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
   bool changeButton = false;
 
-  CartController cartController = Get.put(CartController());
+  @override
+  void initState() {
+    convert();
+    super.initState();
+  }
 
-  // onProceedClick(BuildContext context) async {
-  //   setState(() {
-  //     changeButton = true;
-  //   });
-  //   await Future.delayed(const Duration(seconds: 1));
-  //   await Navigator.push(
-  //       context,
-  //       MaterialPageRoute(
-  //         builder: (context) => const PaymentSuccessfulScreen(),
-  //       ));
-  //   setState(() {
-  //     changeButton = false;
-  //   });
-  // }
+  void convert() {
+    int index = 0;
+    CartProduct obj = CartProduct(
+        productId: widget.order.orderProducts[0].productId,
+        productName: widget.order.orderProducts[0].productName,
+        productImg: widget.order.orderProducts[0].productImg,
+        productPrice: widget.order.orderProducts[0].productPrice.toString(),
+        qty: 1);
+    widget.productList.add(obj);
+    for (int i = 1; i < widget.order.orderProducts.length; i++) {
+      if (widget.order.orderProducts[i].productId ==
+          widget.productList[index].productId) {
+        widget.productList[index].qty++;
+      } else {
+        CartProduct obj = CartProduct(
+            productId: widget.order.orderProducts[i].productId,
+            productName: widget.order.orderProducts[i].productName,
+            productImg: widget.order.orderProducts[i].productImg,
+            productPrice: widget.order.orderProducts[i].productPrice.toString(),
+            qty: 1);
+        widget.productList.add(obj);
+        index++;
+      }
+    }
+  }
+
+  CartController cartController = Get.put(CartController());
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +72,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Order# ERD456G7HT6R",
+              "Order# ${widget.order.orderNo}",
               style: Theme.of(context).textTheme.headline6,
             ),
             const SizedBox(height: defaultPadding),
@@ -68,15 +88,17 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                   children: [
                     Text(
                       "Payment",
-                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                          fontSize: 15
-                      ),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText1!
+                          .copyWith(fontSize: 15),
                     ),
                     Text(
-                      "Credit Card",
-                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontSize: 15
-                      ),
+                      widget.order.paymentMethod,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall!
+                          .copyWith(fontSize: 15),
                     ),
                   ],
                 ),
@@ -86,15 +108,17 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                   children: [
                     Text(
                       "Date",
-                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                          fontSize: 15
-                      ),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText1!
+                          .copyWith(fontSize: 15),
                     ),
                     Text(
-                      "02-05-2022",
-                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontSize: 15
-                      ),
+                      widget.order.orderDate,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall!
+                          .copyWith(fontSize: 15),
                     ),
                   ],
                 ),
@@ -112,24 +136,30 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
               "Items",
               style: Theme.of(context).textTheme.headline6,
             ),
-            const OrderItemImages(),
+            OrderItemImages(
+              productsList: widget.order.orderProducts,
+            ),
             const SizedBox(height: defaultPadding),
-            CheckoutItemsList(cartController: cartController),
+            OrderItemsList(
+              productsList: widget.productList,
+            ),
             const Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   "Total",
-                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                      fontSize: 15
-                  ),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText1!
+                      .copyWith(fontSize: 15),
                 ),
                 Text(
-                  '\$5000',
-                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                      fontSize: 15
-                  ),
+                  'Rs. ${widget.order.total}',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodySmall!
+                      .copyWith(fontSize: 15),
                 ),
               ],
             ),
@@ -152,7 +182,10 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                       },
                       style: ElevatedButton.styleFrom(
                           primary: Colors.white, shape: const StadiumBorder()),
-                      child: const Text("Receipt", style: TextStyle(color: Colors.black),),
+                      child: const Text(
+                        "Receipt",
+                        style: TextStyle(color: Colors.black),
+                      ),
                     ),
                   ),
                 ),

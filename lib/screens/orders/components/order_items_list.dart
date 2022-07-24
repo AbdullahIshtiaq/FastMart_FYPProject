@@ -6,10 +6,10 @@ import '../../../constants.dart';
 class OrderItemsList extends StatelessWidget {
   const OrderItemsList({
     Key? key,
-    required this.cartController,
+    required this.productsList,
   }) : super(key: key);
 
-  final CartController cartController;
+  final List<CartProduct> productsList;
 
   @override
   Widget build(BuildContext context) {
@@ -36,16 +36,14 @@ class OrderItemsList extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // Text(
-                    //     "${cartController.cartProducts.keys.toList()[index].title} "
-                    //         "(${cartController.cartProducts.values.toList()[index]})"),
-                    // Text(
-                    //     "\$${cartController.cartProducts.keys.toList()[index].price}"),
+                    Text("${productsList[index].productName} "
+                        "(${productsList[index].qty})"),
+                    Text("\$${productsList[index].productPrice}"),
                   ],
                 ),
               ),
             ),
-            itemCount: cartController.cartProducts.length,
+            itemCount: productsList.length,
             scrollDirection: Axis.vertical,
           ),
         ),

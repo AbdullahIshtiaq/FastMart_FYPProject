@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'product_state.dart';
+part of 'order_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,44 +15,43 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$ProductsState {
-  List<MyProduct> get products => throw _privateConstructorUsedError;
+mixin _$OrdersState {
+  List<MyOrder> get orders => throw _privateConstructorUsedError;
   bool get hasNext => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $ProductsStateCopyWith<ProductsState> get copyWith =>
+  $OrdersStateCopyWith<OrdersState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ProductsStateCopyWith<$Res> {
-  factory $ProductsStateCopyWith(
-          ProductsState value, $Res Function(ProductsState) then) =
-      _$ProductsStateCopyWithImpl<$Res>;
-  $Res call({List<MyProduct> products, bool hasNext, bool isLoading});
+abstract class $OrdersStateCopyWith<$Res> {
+  factory $OrdersStateCopyWith(
+          OrdersState value, $Res Function(OrdersState) then) =
+      _$OrdersStateCopyWithImpl<$Res>;
+  $Res call({List<MyOrder> orders, bool hasNext, bool isLoading});
 }
 
 /// @nodoc
-class _$ProductsStateCopyWithImpl<$Res>
-    implements $ProductsStateCopyWith<$Res> {
-  _$ProductsStateCopyWithImpl(this._value, this._then);
+class _$OrdersStateCopyWithImpl<$Res> implements $OrdersStateCopyWith<$Res> {
+  _$OrdersStateCopyWithImpl(this._value, this._then);
 
-  final ProductsState _value;
+  final OrdersState _value;
   // ignore: unused_field
-  final $Res Function(ProductsState) _then;
+  final $Res Function(OrdersState) _then;
 
   @override
   $Res call({
-    Object? products = freezed,
+    Object? orders = freezed,
     Object? hasNext = freezed,
     Object? isLoading = freezed,
   }) {
     return _then(_value.copyWith(
-      products: products == freezed
-          ? _value.products
-          : products // ignore: cast_nullable_to_non_nullable
-              as List<MyProduct>,
+      orders: orders == freezed
+          ? _value.orders
+          : orders // ignore: cast_nullable_to_non_nullable
+              as List<MyOrder>,
       hasNext: hasNext == freezed
           ? _value.hasNext
           : hasNext // ignore: cast_nullable_to_non_nullable
@@ -66,37 +65,36 @@ class _$ProductsStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$$_ProductsStateCopyWith<$Res>
-    implements $ProductsStateCopyWith<$Res> {
-  factory _$$_ProductsStateCopyWith(
-          _$_ProductsState value, $Res Function(_$_ProductsState) then) =
-      __$$_ProductsStateCopyWithImpl<$Res>;
+abstract class _$$_OrdersStateCopyWith<$Res>
+    implements $OrdersStateCopyWith<$Res> {
+  factory _$$_OrdersStateCopyWith(
+          _$_OrdersState value, $Res Function(_$_OrdersState) then) =
+      __$$_OrdersStateCopyWithImpl<$Res>;
   @override
-  $Res call({List<MyProduct> products, bool hasNext, bool isLoading});
+  $Res call({List<MyOrder> orders, bool hasNext, bool isLoading});
 }
 
 /// @nodoc
-class __$$_ProductsStateCopyWithImpl<$Res>
-    extends _$ProductsStateCopyWithImpl<$Res>
-    implements _$$_ProductsStateCopyWith<$Res> {
-  __$$_ProductsStateCopyWithImpl(
-      _$_ProductsState _value, $Res Function(_$_ProductsState) _then)
-      : super(_value, (v) => _then(v as _$_ProductsState));
+class __$$_OrdersStateCopyWithImpl<$Res> extends _$OrdersStateCopyWithImpl<$Res>
+    implements _$$_OrdersStateCopyWith<$Res> {
+  __$$_OrdersStateCopyWithImpl(
+      _$_OrdersState _value, $Res Function(_$_OrdersState) _then)
+      : super(_value, (v) => _then(v as _$_OrdersState));
 
   @override
-  _$_ProductsState get _value => super._value as _$_ProductsState;
+  _$_OrdersState get _value => super._value as _$_OrdersState;
 
   @override
   $Res call({
-    Object? products = freezed,
+    Object? orders = freezed,
     Object? hasNext = freezed,
     Object? isLoading = freezed,
   }) {
-    return _then(_$_ProductsState(
-      products: products == freezed
-          ? _value._products
-          : products // ignore: cast_nullable_to_non_nullable
-              as List<MyProduct>,
+    return _then(_$_OrdersState(
+      orders: orders == freezed
+          ? _value._orders
+          : orders // ignore: cast_nullable_to_non_nullable
+              as List<MyOrder>,
       hasNext: hasNext == freezed
           ? _value.hasNext
           : hasNext // ignore: cast_nullable_to_non_nullable
@@ -111,19 +109,19 @@ class __$$_ProductsStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ProductsState implements _ProductsState {
-  _$_ProductsState(
-      {final List<MyProduct> products = const <MyProduct>[],
+class _$_OrdersState implements _OrdersState {
+  _$_OrdersState(
+      {final List<MyOrder> orders = const <MyOrder>[],
       this.hasNext = true,
       this.isLoading = false})
-      : _products = products;
+      : _orders = orders;
 
-  final List<MyProduct> _products;
+  final List<MyOrder> _orders;
   @override
   @JsonKey()
-  List<MyProduct> get products {
+  List<MyOrder> get orders {
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_products);
+    return EqualUnmodifiableListView(_orders);
   }
 
   @override
@@ -135,15 +133,15 @@ class _$_ProductsState implements _ProductsState {
 
   @override
   String toString() {
-    return 'ProductsState(products: $products, hasNext: $hasNext, isLoading: $isLoading)';
+    return 'OrdersState(orders: $orders, hasNext: $hasNext, isLoading: $isLoading)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ProductsState &&
-            const DeepCollectionEquality().equals(other._products, _products) &&
+            other is _$_OrdersState &&
+            const DeepCollectionEquality().equals(other._orders, _orders) &&
             const DeepCollectionEquality().equals(other.hasNext, hasNext) &&
             const DeepCollectionEquality().equals(other.isLoading, isLoading));
   }
@@ -151,30 +149,30 @@ class _$_ProductsState implements _ProductsState {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(_products),
+      const DeepCollectionEquality().hash(_orders),
       const DeepCollectionEquality().hash(hasNext),
       const DeepCollectionEquality().hash(isLoading));
 
   @JsonKey(ignore: true)
   @override
-  _$$_ProductsStateCopyWith<_$_ProductsState> get copyWith =>
-      __$$_ProductsStateCopyWithImpl<_$_ProductsState>(this, _$identity);
+  _$$_OrdersStateCopyWith<_$_OrdersState> get copyWith =>
+      __$$_OrdersStateCopyWithImpl<_$_OrdersState>(this, _$identity);
 }
 
-abstract class _ProductsState implements ProductsState {
-  factory _ProductsState(
-      {final List<MyProduct> products,
+abstract class _OrdersState implements OrdersState {
+  factory _OrdersState(
+      {final List<MyOrder> orders,
       final bool hasNext,
-      final bool isLoading}) = _$_ProductsState;
+      final bool isLoading}) = _$_OrdersState;
 
   @override
-  List<MyProduct> get products;
+  List<MyOrder> get orders;
   @override
   bool get hasNext;
   @override
   bool get isLoading;
   @override
   @JsonKey(ignore: true)
-  _$$_ProductsStateCopyWith<_$_ProductsState> get copyWith =>
+  _$$_OrdersStateCopyWith<_$_OrdersState> get copyWith =>
       throw _privateConstructorUsedError;
 }

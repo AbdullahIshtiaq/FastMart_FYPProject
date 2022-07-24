@@ -1,16 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:stylish/models/MyOrder.dart';
 
 import '../../../constants.dart';
 import '../order_details_screen.dart';
 
 class OrderCard extends StatelessWidget {
-  const OrderCard({
-    Key? key,
-    required this.press,
-  }) : super(key: key);
+  const OrderCard({Key? key, required this.order}) : super(key: key);
 
-  final VoidCallback press;
+  final MyOrder order;
 
   @override
   Widget build(BuildContext context) {
@@ -34,11 +32,11 @@ class OrderCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Order No: 1234DGVBG34X",
+                      "Order No: ${order.orderNo}",
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
                     Text(
-                      "04-04-2022",
+                      order.orderDate,
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ],
@@ -54,7 +52,7 @@ class OrderCard extends StatelessWidget {
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
                         Text(
-                          "12",
+                          order.quantity.toString(),
                           style: Theme.of(context).textTheme.bodyText1,
                         ),
                       ],
@@ -66,7 +64,7 @@ class OrderCard extends StatelessWidget {
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
                         Text(
-                          "\$5000",
+                          "Rs. ${order.total}",
                           style: Theme.of(context).textTheme.bodyText1,
                         ),
                       ],
@@ -76,27 +74,28 @@ class OrderCard extends StatelessWidget {
                 const SizedBox(height: defaultPadding),
                 // Expanded(
                 //   child:
-                  Align(
-                    alignment: Alignment.bottomRight,
-                    child: SizedBox(
-                      width: 130,
-                      height: 40,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const OrderDetailsScreen(),
-                              ));
-                        },
-                        style: ElevatedButton.styleFrom(
-                            primary: primaryColor,
-                            shape: const StadiumBorder()),
-                        child: const Text("Details"),
-                      ),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: SizedBox(
+                    width: 130,
+                    height: 40,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => OrderDetailsScreen(
+                                order: order,
+                              ),
+                            ));
+                      },
+                      style: ElevatedButton.styleFrom(
+                          primary: primaryColor, shape: const StadiumBorder()),
+                      child: const Text("Details"),
                     ),
                   ),
-               // ),
+                ),
+                // ),
               ],
             ),
           ),

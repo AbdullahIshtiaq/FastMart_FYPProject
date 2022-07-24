@@ -1,9 +1,13 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:stylish/application/notifier/order_filter_notifier.dart';
+import 'package:stylish/application/notifier/orders_notifier.dart';
 import 'package:stylish/application/notifier/product_filter_notifier.dart';
 import 'package:stylish/application/notifier/products_notifier.dart';
+import 'package:stylish/application/state/order_state.dart';
 import 'package:stylish/application/state/product_state.dart';
 import 'package:stylish/models/MyCategory.dart';
 import 'package:stylish/models/MyPagination.dart';
+import 'package:stylish/models/OrderFilterModel.dart';
 import 'package:stylish/services/api_service.dart';
 
 import '../models/MyProduct.dart';
@@ -32,9 +36,18 @@ final productsFilterProvider =
 );
 
 final productsNotifierProvider =
-StateNotifierProvider<ProductNotifier, ProductsState>(
-      (ref) => ProductNotifier(
-        ref.watch(apiService),
-        ref.watch(productsFilterProvider)
-      ),
+    StateNotifierProvider<ProductNotifier, ProductsState>(
+  (ref) =>
+      ProductNotifier(ref.watch(apiService), ref.watch(productsFilterProvider)),
+);
+
+final ordersFilterProvider =
+    StateNotifierProvider<OrderFilterNotifier, OrderFilterModel>(
+  (ref) => OrderFilterNotifier(),
+);
+
+final ordersNotifierProvider =
+    StateNotifierProvider<OrderNotifier, OrdersState>(
+  (ref) =>
+      OrderNotifier(ref.watch(apiService), ref.watch(ordersFilterProvider)),
 );
