@@ -13,9 +13,10 @@ import 'dart:developer' as developer;
 import 'components/order_card.dart';
 
 class OrdersScreen extends ConsumerWidget {
-  OrdersScreen({Key? key}) : super(key: key);
+  OrdersScreen({Key? key, required this.userId}) : super(key: key);
 
   final ScrollController _scrollController = ScrollController();
+  final String userId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -23,12 +24,9 @@ class OrdersScreen extends ConsumerWidget {
   }
 
   Future<void> _processingData(WidgetRef ref) async {
-    // var userDetails = await SharedService.loginDetails();
-    developer.log('log me 27: ', name: 'my.app.Order 27');
-
     OrderFilterModel filterModel = OrderFilterModel(
         paginationModel: MyPaginationModel(page: 1, pageSize: 10),
-        userId: "62dbaffd43e899da6cec3f1e");
+        userId: userId);
     ref.read(ordersFilterProvider.notifier).setOrderFilter(filterModel);
     ref.read(ordersNotifierProvider.notifier).getOrders();
 

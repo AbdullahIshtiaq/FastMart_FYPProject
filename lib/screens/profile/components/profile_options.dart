@@ -6,9 +6,9 @@ import '../../../constants.dart';
 import '../../orders/orders_screen.dart';
 
 class ProfileOptions extends StatelessWidget {
-  const ProfileOptions({
-    Key? key,
-  }) : super(key: key);
+  const ProfileOptions({Key? key, required this.userId}) : super(key: key);
+
+  final String userId;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,9 @@ class ProfileOptions extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => OrdersScreen(),
+                    builder: (context) => OrdersScreen(
+                      userId: userId,
+                    ),
                   ));
             },
             child: Column(

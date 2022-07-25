@@ -16,6 +16,8 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  late String userId;
+
   late String username;
 
   late String email;
@@ -27,6 +29,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Future<LoginResponseModel?> _getUserData() async {
     print("Line 27");
     LoginResponseModel? userDetails = await SharedService.loginDetails();
+    userId = userDetails!.data.id;
     username = userDetails!.data.username;
     email = userDetails.data.email;
     joiningDate = userDetails.data.date;
@@ -101,7 +104,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                     const SizedBox(height: defaultPadding * 2),
-                    const ProfileOptions(),
+                    ProfileOptions(
+                      userId: userId,
+                    ),
                     const SizedBox(height: defaultPadding),
                     Text(
                       "Personal Information",

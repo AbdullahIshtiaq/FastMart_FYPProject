@@ -1,9 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
+import 'package:intl/intl.dart';
 import 'package:stylish/constants.dart';
+import 'package:stylish/models/order_request_model.dart';
 import 'package:stylish/screens/checkout/components/billing_info.dart';
 import 'package:stylish/screens/payment/payment_successful_screen.dart';
+import 'package:stylish/services/api_service.dart';
+import 'package:stylish/services/shared_service.dart';
 import 'package:stylish/utils/shared_preferences.dart';
 
 import '../../models/Cart.dart';
@@ -23,26 +28,72 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   CartController cartController = Get.put(CartController());
 
   onProceedClick(BuildContext context) async {
-    UserSharedPreferences.deleteCartList();
-    setState(() {
-      changeButton = true;
+    int orderNo = DateTime.now().millisecondsSinceEpoch;
+    var userDetails = await SharedService.loginDetails();
+    String orderProducts = "";
+
+    int totalQty = 0;
+    for (var p in cartController.cartProducts) {
+      p = p as CartProduct;
+
+      for (int i = 0; i < p.qty; i++) {
+        orderProducts += p.productId + ":";
+        totalQty++;
+      }
+    }
+
+    var now = DateTime.now();
+    var formatter = DateFormat('yyyy-MM-dd');
+    String formattedDate = formatter.format(now);
+
+    int total = ((double.parse(cartController.total)) * .5).round();
+
+    OrderRequestModel model = OrderRequestModel(
+        orderNo: orderNo.toString(),
+        orderUser: userDetails!.data.id,
+        orderProducts: orderProducts,
+        paymentMethod: "Cash",
+        orderDate: formattedDate,
+        quantity: totalQty,
+        total: total);
+
+    bool isResponse = await APIService.saveOrder(model).then((response) {
+      if (!response) {
+        Get.snackbar("Order Failed", "",
+            snackPosition: SnackPosition.BOTTOM,
+            duration: const Duration(seconds: 1));
+      } else {
+        Get.snackbar("Order Successful", "",
+            snackPosition: SnackPosition.BOTTOM,
+            duration: const Duration(seconds: 1));
+      }
+      return response;
     });
-    await Future.delayed(const Duration(seconds: 1));
-    // await Navigator.push(
-    //     context,
-    //     MaterialPageRoute(
-    //       builder: (context) => const PaymentSuccessfulScreen(),
-    //     ));
-    await Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-            builder: (BuildContext context) => PaymentSuccessfulScreen(
-                  cartController: cartController,
-                )),
-        (Route<dynamic> route) => false);
-    setState(() {
-      changeButton = false;
-    });
+
+    if (!isResponse) {
+      return;
+    } else {
+      UserSharedPreferences.deleteCartList();
+      setState(() {
+        changeButton = true;
+      });
+      await Future.delayed(const Duration(seconds: 1));
+      // await Navigator.push(
+      //     context,
+      //     MaterialPageRoute(
+      //       builder: (context) => const PaymentSuccessfulScreen(),
+      //     ));
+      await Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+              builder: (BuildContext context) => PaymentSuccessfulScreen(
+                    cartController: cartController,
+                  )),
+          (Route<dynamic> route) => false);
+      setState(() {
+        changeButton = false;
+      });
+    }
   }
 
   @override
